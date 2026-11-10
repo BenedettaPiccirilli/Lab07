@@ -10,4 +10,22 @@ class BibliotecaDAO:
     def __init__(self):
         pass
 
-    # TODO
+    def get_all_biblioteche(self):
+        cnx = DBConnect.get_connection()
+        result=[]
+        if cnx is None:
+            print("Errore di connessione al database")
+            return result
+        cursor = cnx.cursor(dictionary=True)
+        query= """ SELECT id, nome, indirizzo FROM biblioteca"""
+
+        try:
+            cursor.execute(query)
+            for row in cursor:
+                result.append(Biblioteca(row[0], row[1], row[2]))
+        except Exception as e:
+            print(f"Errore nella connessione al database: {e}")
+        finally:
+            cursor.close()
+            cnx.close()
+        return result

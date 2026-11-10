@@ -36,27 +36,47 @@ class View:
         self.txt_titolo = ft.Text(value="Biblioteche di Torino", size=38, weight=ft.FontWeight.BOLD)
 
         # --- Sezione 2: Filtraggio ---
-        # TODO
+        self.dd_biblioteca = ft.Dropdown(
+            label="Biblioteca",
+            hint_text="Seleziona una biblioteca",
+            width=300,
+            on_select=lambda e: self.controller.leggi_biblioteca(e)
+        )
+
+        self.dd_genere = ft.Dropdown(
+            label="Genere",
+            hint_text="Seleziona un genere",
+            width=300,
+            on_select=lambda e: self.controller.leggi_genere(e)
+        )
 
         # Sezione 3: Libri
-        # TODO
+        self.btn_mostra_libri = ft.Button(
+            content="Mostra Libri",
+            on_click=lambda e: self.controller.mostra_libri(e),
+            width=150
+        )
+        self.list_view_libri = ft.ListView(expand=1, spacing=10, padding=10, auto_scroll=False)
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
 
         # --- Layout della pagina ---
+
         self.page.add(
             self.toggle_cambia_tema,
-
-            # Sezione 1
             self.txt_titolo,
             ft.Divider(),
-
-            # Sezione 2: Filtraggio
-            # TODO
-
-            # Sezione 3: Libri
-            # TODO
+            ft.Row([self.dd_biblioteca, self.dd_genere], alignment=ft.MainAxisAlignment.CENTER),
+            ft.Divider(),
+            self.btn_mostra_libri,
+            ft.Container(
+                content=self.list_view_libri,
+                height=350,
+                width=600,
+                border_radius=10,
+                padding=10
+            )
         )
 
         self.page.scroll = "adaptive"
