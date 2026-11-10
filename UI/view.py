@@ -79,6 +79,9 @@ class View:
             )
         )
 
+        if self.controller:
+            self.controller.popola_dropdown()
+
         self.page.scroll = "adaptive"
         self.page.update()
 

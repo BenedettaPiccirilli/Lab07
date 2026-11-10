@@ -31,6 +31,7 @@ class Controller:
                 self._view.dd_genere.options.append(ft.dropdown.Option(gen))
 
         self._view.update()
+        self._view.page.update()
 
     # CALLBACKS DROPDOWN
     def leggi_biblioteca(self, e):

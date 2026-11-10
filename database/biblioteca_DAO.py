@@ -21,11 +21,11 @@ class BibliotecaDAO:
 
         try:
             cursor.execute(query)
-            for row in cursor:
-                result.append(Biblioteca(row[0], row[1], row[2]))
+            rows = cursor.fetchall()
+            for row in rows:
+                result.append(Biblioteca(row["id"], row["nome"], row["indirizzo"]))
         except Exception as e:
-            print(f"Errore nella connessione al database: {e}")
+            print(f"Errore nella query: {e}")
         finally:
             cursor.close()
-            cnx.close()
         return result
